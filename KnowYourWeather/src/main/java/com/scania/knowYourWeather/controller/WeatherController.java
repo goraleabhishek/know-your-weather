@@ -1,8 +1,9 @@
 package com.scania.knowYourWeather.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import com.scania.knowYourWeather.dto.CurrentWeatherDTO;
@@ -18,9 +19,6 @@ import com.scania.knowYourWeather.dto.CurrentWeatherDTO;
 @Controller
 public class WeatherController {
 
-    // inject via application.properties
-    @Value("${welcome.message}")
-    private String message;
     
     @Value("${title}")
     private String title;
@@ -34,31 +32,14 @@ public class WeatherController {
     @Value("#{'${weather.city.list}'.split(',')}") 
     private List<String> cityList;
 
-    private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
-
-    @GetMapping("/")
-    public String main(Model model) {
-        model.addAttribute("message", message);
-        model.addAttribute("tasks", tasks);
-
-        return "welcome"; //view
-    }
-
-    // /hello?name=kotlin
-    @GetMapping("/hello")
-    public String mainWithParam(
-            @RequestParam(name = "name", required = false, defaultValue = "") 
-            String name, Model model) {
-
-        model.addAttribute("message", name);
-
-        return "welcome"; //view
-    }
-
-    @GetMapping("/getCurrentWeather")
-    public String getCurrentWeather(Model model) throws URISyntaxException {
+    @GetMapping("/getCurrentWeather/{cityName}")
+    public String getCurrentWeather(@PathVariable(name = "cityName") String cityName,  Model model) throws URISyntaxException, UnsupportedEncodingException {
     	
-    	String apiUrl = apiUrlCurrentWeather.replace("YOUR_ACCESS_KEY", apiKey).replace("YOUR_CITY", cityList.get(1));
+    	if(cityName.contains(" ")) {
+    		cityName = URLEncoder.encode(cityName, "UTF-8");
+    	}
+    	
+    	String apiUrl = apiUrlCurrentWeather.replace("YOUR_ACCESS_KEY", apiKey).replace("YOUR_CITY", cityName);
     	
     	URI uri = new URI(apiUrl);
     
@@ -75,7 +56,7 @@ public class WeatherController {
     @GetMapping("/getCityList")
     public String getCityList(Model model) {
     	
-    	model.addAttribute("message", cityList+" | "+cityList.size());
+    	model.addAttribute("cityList", cityList);
     
     	return "welcome";
     }

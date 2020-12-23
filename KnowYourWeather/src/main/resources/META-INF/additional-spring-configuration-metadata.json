@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "weatherstack.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'weatherstack.api.key'"
+  },
+  {
+    "name": "weatherstack.api.url.currentWeather",
+    "type": "java.lang.String",
+    "description": "A description for 'weatherstack.api.url.currentWeather'"
+  },
+  {
+    "name": "weather.city.list",
+    "type": "java.lang.String",
+    "description": "A description for 'weather.city.list'"
+  },
+  {
+    "name": "title",
+    "type": "java.lang.String",
+    "description": "A description for 'title'"
+  }
+]}
