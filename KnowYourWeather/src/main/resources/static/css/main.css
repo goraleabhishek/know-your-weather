@@ -1,15 +1,24 @@
-body {
-  padding-top: 5rem;
+* { box-sizing: border-box; }
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
 }
-.starter-template {
-  padding: 3rem 1.5rem;
-  text-align: center;
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
 }
-
-h1{
-    color:#0000FF;
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
 }
-
-h2{
-    color:#FF0000;
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
 }

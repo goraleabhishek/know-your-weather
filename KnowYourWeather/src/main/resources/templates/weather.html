@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="${title}"></title>
+<link rel="stylesheet" th:href="@{${cssPath}}" />
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script th:src="|${javscriptPath}|"></script>
+</head>
+
+<body>
+	<div class="container">
+		<table>
+			<tr>
+				<td align="center"><h3>How's the weather in...</h3></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="autocomplete" style="width: 300px;">
+						<input id="myCity" type="text" placeholder="City">
+					</div>
+				</td>
+				<td><img id="getWeather" alt="Add" width="30" height="30"
+					src="/images/Plus_Icon.png" /></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td><img id="weatherIcon" width="70" height="70" /></td>
+				<td>
+					<div id="cityTemperature"></div>
+					<div id="cityWeatherDesc"></div>
+					<div id="cityAndCountry"></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
