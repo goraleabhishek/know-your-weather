@@ -64,19 +64,15 @@ public class WeatherController {
 
 	@ResponseBody
 	@RequestMapping(path = "/getCurrentWeather/{cityName}", produces = "application/json", method = RequestMethod.GET)
-	public CurrentWeatherDTO getCurrentWeather(@PathVariable(name = "cityName") String cityName)
-			throws URISyntaxException, UnsupportedEncodingException {
-		ResponseEntity<CurrentWeatherDTO> response = weatherService.getCurrentWeather(cityName);
+	public CurrentWeatherDTO getCurrentWeather(@PathVariable(name = "cityName") String cityName) {
 
-		return response.getBody();
+		return weatherService.getCurrentWeather(cityName);
 	}
 
 	@ResponseBody
 	@RequestMapping(path = "/getCityList/{searchString}", produces = "application/json", method = RequestMethod.GET)
 	public List<String> getCityList(@PathVariable(name = "searchString", required = false) String searchString) {
 
-		List<String> finalCityList = weatherService.getFilteredCity(searchString);
-
-		return finalCityList;
+		return weatherService.getFilteredCity(searchString);
 	}
 }

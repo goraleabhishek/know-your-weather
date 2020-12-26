@@ -26,22 +26,47 @@ public class WeatherService {
 
 	@Value("#{'${weather.city.list}'.split(',')}")
 	private List<String> cityList;
-	
-	public ResponseEntity<CurrentWeatherDTO> getCurrentWeather(String cityName)
-			throws UnsupportedEncodingException, URISyntaxException {
 
-		if (cityName.contains(ApplicationConstant.SPACE)) {
-			cityName = URLEncoder.encode(cityName, ApplicationConstant.UTF_8);
+	public CurrentWeatherDTO getCurrentWeather(String cityName) {
+
+		CurrentWeatherDTO response = new CurrentWeatherDTO();
+
+		try {
+
+			if (cityName.contains(ApplicationConstant.SPACE)) {
+				cityName = URLEncoder.encode(cityName, ApplicationConstant.UTF_8);
+			}
+
+			String apiUrl = apiUrlCurrentWeather.replace(ApplicationConstant.YOUR_ACCESS_KEY, apiKey)
+					.replace(ApplicationConstant.YOUR_CITY, cityName);
+
+			URI uri = new URI(apiUrl);
+
+			RestTemplate restTemplate = new RestTemplate();
+
+			ResponseEntity<CurrentWeatherDTO> apiResponse = restTemplate.getForEntity(uri, CurrentWeatherDTO.class);
+
+			if (apiResponse == null || apiResponse.getBody() == null || apiResponse.getBody().getRequest() == null
+					|| apiResponse.getBody().getLocation() == null || apiResponse.getBody().getCurrent() == null) {
+				response.setStatusCode(ApplicationConstant.STATUS_CODE_ERROR);
+				response.setStatusMessage(ApplicationConstant.STATUS_MSG_ERROR_CITY_NOT_FOUND);
+			} else {
+				response = apiResponse.getBody();
+				response.setStatusCode(ApplicationConstant.STATUS_CODE_SUCCESS);
+				response.setStatusMessage(ApplicationConstant.STATUS_MSG_SUCCESS);
+			}
+
+		} catch (UnsupportedEncodingException exception) {
+			response.setStatusCode(ApplicationConstant.STATUS_CODE_ERROR);
+			response.setStatusMessage(ApplicationConstant.STATUS_MSG_ERROR_SYSTEM_ERROR);
+		} catch (URISyntaxException exception) {
+			response.setStatusCode(ApplicationConstant.STATUS_CODE_ERROR);
+			response.setStatusMessage(ApplicationConstant.STATUS_MSG_ERROR_SYSTEM_ERROR);
+		} catch (Exception exception) {
+			response.setStatusCode(ApplicationConstant.STATUS_CODE_ERROR);
+			response.setStatusMessage(ApplicationConstant.STATUS_MSG_ERROR_SYSTEM_ERROR);
 		}
 
-		String apiUrl = apiUrlCurrentWeather.replace(ApplicationConstant.YOUR_ACCESS_KEY, apiKey)
-				.replace(ApplicationConstant.YOUR_CITY, cityName);
-
-		URI uri = new URI(apiUrl);
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		ResponseEntity<CurrentWeatherDTO> response = restTemplate.getForEntity(uri, CurrentWeatherDTO.class);
 		return response;
 	}
 
