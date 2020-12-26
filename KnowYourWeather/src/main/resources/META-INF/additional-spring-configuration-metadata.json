@@ -28,5 +28,30 @@
     "name": "cssPath",
     "type": "java.lang.String",
     "description": "A description for 'cssPath'"
+  },
+  {
+    "name": "plusIconPath",
+    "type": "java.lang.String",
+    "description": "A description for 'plusIconPath'"
+  },
+  {
+    "name": "heading",
+    "type": "java.lang.String",
+    "description": "A description for 'heading'"
+  },
+  {
+    "name": "footer",
+    "type": "java.lang.String",
+    "description": "A description for 'footer'"
+  },
+  {
+    "name": "header",
+    "type": "java.lang.String",
+    "description": "A description for 'header'"
+  },
+  {
+    "name": "weatherIconPath",
+    "type": "java.lang.String",
+    "description": "A description for 'weatherIconPath'"
   }
 ]}

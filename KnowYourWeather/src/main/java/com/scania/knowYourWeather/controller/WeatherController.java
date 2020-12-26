@@ -29,6 +29,21 @@ public class WeatherController {
 	
 	@Value("${javscriptPath}")
 	private String javscriptPath;
+	
+	@Value("${plusIconPath}")
+	private String plusIconPath;
+	
+	@Value("${weatherIconPath}")
+	private String weatherIconPath;
+	
+	@Value("${header}")
+	private String header;
+	
+	@Value("${footer}")
+	private String footer;
+	
+	@Value("${heading}")
+	private String heading;
 
 	@Autowired
 	private WeatherService weatherService;
@@ -38,6 +53,11 @@ public class WeatherController {
 		model.addAttribute("title", title);
 		model.addAttribute("cssPath", cssPath);
 		model.addAttribute("javscriptPath", javscriptPath);
+		model.addAttribute("plusIconPath", plusIconPath);
+		model.addAttribute("weatherIconPath", weatherIconPath);
+		model.addAttribute("header", header);
+		model.addAttribute("footer", footer);
+		model.addAttribute("heading", heading);
 
 		return "weather";
 	}

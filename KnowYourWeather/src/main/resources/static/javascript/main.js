@@ -1,6 +1,10 @@
 $(document)
 			.ready(
 					function() {
+
+						var index = 0;
+						$("#cityWeatherDiv").hide();
+
 						$("#myCity")
 								.autocomplete(
 										{
@@ -30,23 +34,48 @@ $(document)
 																+ cityName,
 														success : function(
 																result) {
-															$("#cityAndCountry")
+															var latestIndex = ++index;
+															var weatherIconURL = result.current.weather_icons;
+															weatherIconURL = weatherIconURL
+																	.toString()
+																	.replaceAll(
+																			'/',
+																			'\/');
+															var weatherDesc = result.current.weather_descriptions;
+
+															$("#cityWeatherRow")
+																	.append(
+																			"<td border= '1'><img id='weatherIcon_"+ latestIndex +"' src='"+weatherIconURL+"' alt='"+weatherDesc+"' width='70' height='70' /></td>"
+																					+ "<td border= '1'>"
+																					+ "<div id='cityTemperature_"+ latestIndex +"'></div>"
+																					+ "<div id='cityWeatherDesc_"+ latestIndex +"'></div>"
+																					+ "<div id='cityAndCountry_"+ latestIndex +"'></div>"
+																					+ "</td>");
+
+															$(
+																	"#cityAndCountry_"
+																			+ latestIndex
+																			+ "")
 																	.html(
 																			result.location.name
 																					+ ", "
 																					+ result.location.country);
-															$("#cityWeatherDesc")
-																	.html(result.current.weather_descriptions);
-															$("#cityTemperature")
-																	.html(result.current.temperature+"&#8451;");
-															$("#weatherIcon")
-																	.attr(
-																			"alt",
+															$(
+																	"#cityWeatherDesc_"
+																			+ latestIndex
+																			+ "")
+																	.html(
 																			result.current.weather_descriptions);
-															$("#weatherIcon")
-																	.attr(
-																			"src",
-																			result.current.weather_icons);
+															$(
+																	"#cityTemperature_"
+																			+ latestIndex
+																			+ "")
+																	.html(
+																			result.current.temperature
+																					+ "&#8451;");
+
+															$("#cityWeatherDiv")
+																	.show();
 														}
 													});
 										});
