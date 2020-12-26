@@ -1,5 +1,10 @@
 package com.scania.knowYourWeather.dto;
 
+/**
+ * This class is CurrentWeatherDTO which is used to send response to UI.
+ * 
+ * @author Abhishek Gorale
+ */
 public class CurrentWeatherDTO {
 
 	private String statusCode;

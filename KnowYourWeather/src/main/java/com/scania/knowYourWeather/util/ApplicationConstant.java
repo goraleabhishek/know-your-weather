@@ -1,5 +1,10 @@
 package com.scania.knowYourWeather.util;
 
+/**
+ * This class is application's constants file.
+ * 
+ * @author Abhishek Gorale
+ */
 public class ApplicationConstant {
 
 	public static final String SPACE = " ";

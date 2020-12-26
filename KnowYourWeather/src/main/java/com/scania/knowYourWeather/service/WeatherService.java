@@ -15,6 +15,12 @@ import org.springframework.web.client.RestTemplate;
 import com.scania.knowYourWeather.dto.CurrentWeatherDTO;
 import com.scania.knowYourWeather.util.ApplicationConstant;
 
+/**
+ * WeatherService connects with API to get the weather of the cities and provide
+ * city names to the UI from properties file.</br>
+ * 
+ * @author Abhishek Gorale
+ */
 @Service
 public class WeatherService {
 
@@ -27,6 +33,13 @@ public class WeatherService {
 	@Value("#{'${weather.city.list}'.split(',')}")
 	private List<String> cityList;
 
+	/**
+	 * This method retrieves the current weather of the provided city name.</br>
+	 * Exception handling is also done.
+	 * 
+	 * @param cityName {@link String}
+	 * @return {@link CurrentWeatherDTO}
+	 */
 	public CurrentWeatherDTO getCurrentWeather(String cityName) {
 
 		CurrentWeatherDTO response = new CurrentWeatherDTO();
@@ -70,6 +83,13 @@ public class WeatherService {
 		return response;
 	}
 
+	/**
+	 * This method filters all the cities from the configured city names & return
+	 * list of city names which starts with the search string passed from UI.
+	 * 
+	 * @param searchString {@link String}
+	 * @return {@link List}
+	 */
 	public List<String> getFilteredCity(String searchString) {
 		return cityList.stream().filter(city -> city.strip().toLowerCase().startsWith(searchString.toLowerCase()))
 				.collect(Collectors.toList());

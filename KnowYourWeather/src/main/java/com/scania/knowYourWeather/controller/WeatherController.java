@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.scania.knowYourWeather.dto.CurrentWeatherDTO;
 import com.scania.knowYourWeather.service.WeatherService;
 
+/**
+ * WeatherController connects UI with back-end APIs.</br>
+ * 
+ * @author Abhishek Gorale
+ */
 @Controller
 public class WeatherController {
 
@@ -45,6 +50,12 @@ public class WeatherController {
 	@Autowired
 	private WeatherService weatherService;
 
+	/**
+	 * This method loads the data required for home page.
+	 * 
+	 * @param model {@link Model}
+	 * @return String {@link String}
+	 */
 	@GetMapping("/")
 	public String getWelcomePage(Model model) {
 		model.addAttribute("title", title);
@@ -59,6 +70,12 @@ public class WeatherController {
 		return "weather";
 	}
 
+	/**
+	 * This method return the current weather of the city name passed from UI.
+	 * 
+	 * @param cityName {@link String}
+	 * @return {@linkplain CurrentWeatherDTO}
+	 */
 	@ResponseBody
 	@RequestMapping(path = "/getCurrentWeather/{cityName}", produces = "application/json", method = RequestMethod.GET)
 	public CurrentWeatherDTO getCurrentWeather(@PathVariable(name = "cityName") String cityName) {
@@ -66,6 +83,12 @@ public class WeatherController {
 		return weatherService.getCurrentWeather(cityName);
 	}
 
+	/**
+	 * This method return list of city names based on the search string passed from UI.
+	 * 
+	 * @param searchString {@link String}
+	 * @return {@link List}
+	 */
 	@ResponseBody
 	@RequestMapping(path = "/getCityList/{searchString}", produces = "application/json", method = RequestMethod.GET)
 	public List<String> getCityList(@PathVariable(name = "searchString", required = false) String searchString) {

@@ -2,6 +2,11 @@ package com.scania.knowYourWeather.dto;
 
 import java.util.Arrays;
 
+/**
+ * This class is CurrentDTO which is used to send response to UI.
+ * 
+ * @author Abhishek Gorale
+ */
 public class CurrentDTO {
 
 	private String observation_time;
